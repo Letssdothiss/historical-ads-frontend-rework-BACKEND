@@ -1,2 +1,3 @@
-# historical-ads-frontend-rework
-An updated and expanded version of the original GUI.
+# historical-ads-frontend-rework-BACKEND
+
+The new backend that goes with the reworked frontend.
