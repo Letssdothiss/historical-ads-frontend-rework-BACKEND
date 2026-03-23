@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # Import routers
 from app.api.v1.endpoints import (
-  search
+  ad
 )
 
 # Create FastAPI instance
@@ -41,7 +41,7 @@ app.add_middleware(
 )
 
 # Include routers
-app.include_router(search.router)
+app.include_router(ad.router)
 
 # Health check
 @app.get('/')
