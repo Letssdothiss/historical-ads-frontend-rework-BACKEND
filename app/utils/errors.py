@@ -48,4 +48,12 @@ class ExternalAPIError(APIError):
       detail=detail,
       error_code="ExternalAPIError"
     )
+# 409 Conflict error
+class ConflictError(APIError):
+  def __init__(self, detail: str = "Conflict error."): 
+    super().__init__(
+      status_code=status.HTTP_409_CONFLICT,
+      detail=detail,
+      error_code="ConflictError"
+    )
     
