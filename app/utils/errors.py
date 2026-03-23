@@ -40,3 +40,12 @@ class ValidationError(APIError):
       detail=detail,
       error_code="ValidationError"
     )
+# 502 External API error
+class ExternalAPIError(APIError):
+  def __init__(self, detail: str = "External API error."): 
+    super().__init__(
+      status_code=status.HTTP_502_BAD_GATEWAY,
+      detail=detail,
+      error_code="ExternalAPIError"
+    )
+    
