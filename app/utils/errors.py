@@ -56,4 +56,11 @@ class ConflictError(APIError):
       detail=detail,
       error_code="ConflictError"
     )
-    
+# 504 Gateway Timeout error
+class TimeoutError(APIError):
+  def __init__(self, detail: str = "Request timeout."): 
+    super().__init__(
+      status_code=status.HTTP_504_GATEWAY_TIMEOUT,
+      detail=detail,
+      error_code="TimeoutError"
+    )
