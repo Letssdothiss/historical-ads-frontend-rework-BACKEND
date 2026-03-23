@@ -32,4 +32,11 @@ class NotFoundError(APIError):
       detail=detail,
       error_code="NotFoundError"
     )
-    
+# 422 validation error
+class ValidationError(APIError):
+  def __init__(self, detail: str = "Validation error."): 
+    super().__init__(
+      status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+      detail=detail,
+      error_code="ValidationError"
+    )
