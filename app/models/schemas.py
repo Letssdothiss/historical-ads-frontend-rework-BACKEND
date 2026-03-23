@@ -28,3 +28,10 @@ class SearchParams(BaseModel):
     employment_type: Optional[List[str]] = Field(None, description="Filter by employment type")
     experience_required: Optional[bool] = Field(None, description="Filter by experience required")
     
+# Export parameters schema
+class ExportParams(BaseModel):
+    """Export parameters schema"""
+    search_params: SearchParams = Field(..., description="Search parameters")
+    format: ExportFormat = Field(ExportFormat.JSON, description="Export format")
+    fields: Optional[List[str]] = Field(None, description="Fields to include in export")
+    
