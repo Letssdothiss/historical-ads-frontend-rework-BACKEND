@@ -19,3 +19,9 @@ class ExternalAPIClient:
     ):
     self.base_url = base_url or settings.EXTERNAL_API_BASE_URL
     self.timeout = timeout or settings.EXTERNAL_API_TIMEOUT
+    
+    # build full URLs for the API endpoints
+    def _build_url(self, endpoint: str) -> str:
+        """Build full URL for an endpoint """
+        return f"{self.base_url.rstrip('/')}/{endpoint.lstrip('/')}"
+    
