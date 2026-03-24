@@ -48,4 +48,16 @@ class StatsItem(BaseModel):
     label: str = Field(..., description="Display label")
     legacy_ams_taxonomy_id: Optional[str] = Field(None, description="Legacy taxonomy ID")
     occurrences: int = Field(..., description="Number of occurrences")
-  
+  # Represents the statistics response returned from the API.
+  # Contains execution timing information and aggregated statistics
+  # grouped by category, where each category includes multiple StatsItem entries.
+class StatsResult(BaseModel):
+    """Statistics result model"""
+    query_time_in_millis: int = Field(..., description="Query time in milliseconds")
+    result_time_in_millis: int = Field(..., description="Result time in milliseconds")
+    stats: Dict[str, List[StatsItem]] = Field(
+        default_factory=dict,
+        description="Statistics by category"
+    )
+class Config:
+  extra = 'allow'
