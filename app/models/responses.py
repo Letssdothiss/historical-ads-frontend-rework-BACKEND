@@ -69,4 +69,13 @@ class FilterOption(BaseModel):
     concept_id: Optional[str] = Field(None, description="Concept ID")
     label: str = Field(..., description="Display label")
     occurrences: Optional[int] = Field(None, description="Number of matching ads")
-  
+  # Represents the available filter options for a job search.
+  # Each attribute contains a list of FilterOption objects for the respective category,
+  # such as occupations, regions, municipalities, employment types, or occupation fields.
+class FiltersResult(BaseModel):
+    """Available filters result"""
+    occupations: List[FilterOption] = Field(default_factory=list)
+    regions: List[FilterOption] = Field(default_factory=list)
+    municipalities: List[FilterOption] = Field(default_factory=list)
+    employment_types: List[FilterOption] = Field(default_factory=list)
+    occupation_fields: List[FilterOption] = Field(default_factory=list)
