@@ -38,4 +38,55 @@ class ExternalAPIClient:
             raise ExternalAPIError(f"Server error: {response.url}")
         else:
             raise ExternalAPIError(f"Unexpected error (status {response.status_code})")
-          
+    # Search for job ads using the API with various filter parameters and pagination options.
+    async def search(
+        self,
+        query: Optional[str] = None,
+        offset: int = 0,
+        limit: int = 10,
+        published_before: Optional[str] = None,
+        published_after: Optional[str] = None,
+        occupation: Optional[List[str]] = None,
+        occupation_group: Optional[List[str]] = None,
+        occupation_field: Optional[List[str]] = None,
+        municipality: Optional[List[str]] = None,
+        region: Optional[List[str]] = None,
+        country: Optional[List[str]] = None,
+        employment_type: Optional[List[str]] = None,
+        experience_required: Optional[bool] = None,
+        ) -> Dict[str, Any]:
+        """ Search for job ads using the API """
+        params = {"offset": offset, "limit": limit}
+        if query:
+            params["q"] = query
+        if published_before:
+            params["published_before"] = published_before
+        if published_after:
+            params["published_after"] = published_after
+        if occupation:
+            params["occupation"] = occupation
+        if occupation_group:
+            params["occupation_group"] = occupation_group
+        if occupation_field:
+            params["occupation_field"] = occupation_field
+        if municipality:
+            params["municipality"] = municipality
+        if region:
+            params["region"] = region
+        if country:
+            params["country"] = country
+        if employment_type:
+            params["employment_type"] = employment_type
+        if experience_required is not None:
+            params["experience_required"] = experience_required
+        url = self._build_url("search")
+        
+        try:
+            async with httpx.AsyncClient(timeout=self.timeout) as client:
+                response = await client.get(url, params=params)
+            return self._handle_response(response)
+        except httpx.TimeoutException:
+            raise TimeoutError(f"Request to {url} timed out")
+        except httpx.ConnectError as e:
+            raise ExternalAPIError(f"Failed to connect to {url}: {str(e)}")
+        
