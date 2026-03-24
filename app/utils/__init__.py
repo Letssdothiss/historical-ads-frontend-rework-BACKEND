@@ -1,22 +1,20 @@
-# Utils module for the app
-from .config import Settings
+"""Utils module"""
+from .config import settings
 from .errors import (
-    APIError,
-    BadRequestError,
+    AppError,
     NotFoundError,
-    ValidationError,
+    BadRequestError,
     ExternalAPIError,
+    TimeoutError,
     ConflictError,
-    TimeoutError
 )
-# Define __all__ for explicit exports
+
 __all__ = [
-    'Settings',
-    'APIError',
-    'BadRequestError',
-    'NotFoundError',
-    'ValidationError',
-    'ExternalAPIError',
-    'ConflictError',
-    'TimeoutError'
+    "settings",
+    "AppError",
+    "NotFoundError",
+    "BadRequestError",
+    "ExternalAPIError",
+    "TimeoutError",
+    "ConflictError",
 ]
