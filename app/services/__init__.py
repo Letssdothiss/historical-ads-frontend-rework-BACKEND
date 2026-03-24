@@ -1,12 +1,10 @@
-"""
-Service module
-"""
-from .external_api import ExternalAPIService, get_api_client
-from .data_processor import DataProcessor, get_data_processor
+"""Services module"""
+from .external_api import HistoricalAdsAPI, get_api
+from .data_processor import DataProcessor, get_processor
 
 __all__ = [
-    'ExternalAPIService',
-    'get_api_client',
-    'DataProcessor',
-    'get_data_processor'
+    "HistoricalAdsAPI",
+    "get_api",
+    "DataProcessor",
+    "get_processor",
 ]
