@@ -1,66 +1,40 @@
-"""
-Custom error classes for the application.
-"""
-from typing import Optional, Dict, Any
-from fastapi import HTTPException, status
+"""Custom error classes"""
+from fastapi import HTTPException
 
-# 500 Internal Server Error
-class APIError(HTTPException):
+
+class AppError(HTTPException):
     """Base application error"""
-    def __init__(
-        self, 
-        status_code: int = status.HTTP_500_INTERNAL_SERVER_ERROR, 
-        detail: str = "An unexpected error occurred.",
-        error_code: Optional[str] = None,
-        headers: Optional[Dict[str, Any]] = None
-    ):
-        self.error_code = error_code or self.__class__.__name__
-        super().__init__(status_code=status_code, detail=detail, headers=headers)
-# 400 Bad Request
-class BadRequestError(APIError):
-  def __init__(self, detail: str = "Bad request."): 
-    super().__init__(
-      status_code=status.HTTP_400_BAD_REQUEST,
-      detail=detail,
-      error_code="BadRequestError"
-    )
-# 404 Not Found
-class NotFoundError(APIError):
-  def __init__(self, detail: str = "Resource not found."): 
-    super().__init__(
-      status_code=status.HTTP_404_NOT_FOUND,
-      detail=detail,
-      error_code="NotFoundError"
-    )
-# 422 validation error
-class ValidationError(APIError):
-  def __init__(self, detail: str = "Validation error."): 
-    super().__init__(
-      status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-      detail=detail,
-      error_code="ValidationError"
-    )
-# 502 External API error
-class ExternalAPIError(APIError):
-  def __init__(self, detail: str = "External API error."): 
-    super().__init__(
-      status_code=status.HTTP_502_BAD_GATEWAY,
-      detail=detail,
-      error_code="ExternalAPIError"
-    )
-# 409 Conflict error
-class ConflictError(APIError):
-  def __init__(self, detail: str = "Conflict error."): 
-    super().__init__(
-      status_code=status.HTTP_409_CONFLICT,
-      detail=detail,
-      error_code="ConflictError"
-    )
-# 504 Gateway Timeout error
-class TimeoutError(APIError):
-  def __init__(self, detail: str = "Request timeout."): 
-    super().__init__(
-      status_code=status.HTTP_504_GATEWAY_TIMEOUT,
-      detail=detail,
-      error_code="TimeoutError"
-    )
+    def __init__(self, status_code: int, detail: dict):
+        self.status_code = status_code
+        self.detail = detail
+        super().__init__(status_code=status_code, detail=detail)
+
+
+class NotFoundError(AppError):
+    """Resource not found"""
+    def __init__(self, message: str = "Resource not found"):
+        super().__init__(404, {"error": "not_found", "message": message})
+
+
+class BadRequestError(AppError):
+    """Bad request error"""
+    def __init__(self, message: str = "Bad request"):
+        super().__init__(400, {"error": "bad_request", "message": message})
+
+
+class ExternalAPIError(AppError):
+    """External API error"""
+    def __init__(self, message: str = "External API error"):
+        super().__init__(502, {"error": "external_api_error", "message": message})
+
+
+class TimeoutError(AppError):
+    """Timeout error"""
+    def __init__(self, message: str = "Request timeout"):
+        super().__init__(504, {"error": "timeout", "message": message})
+
+
+class ConflictError(AppError):
+    """Conflict error"""
+    def __init__(self, message: str = "Conflict"):
+        super().__init__(409, {"error": "conflict", "message": message})
