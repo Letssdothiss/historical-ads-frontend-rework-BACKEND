@@ -22,4 +22,9 @@ class JobAd(BaseModel):
   application_deadline: Optional[str] = Field(None, description="Application deadline")
   number_of_vacancies: Optional[int] = Field(None, description="Number of vacancies")
   relevance: Optional[int] = Field(None, description="Search relevance score")
+
+  # Allow additional fields not explicitly defined in the model.
+  # Useful when the API may return extra data that we still want to accept.
+  class Config:
+    extra = 'allow'
     
