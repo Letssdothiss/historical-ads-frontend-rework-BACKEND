@@ -61,3 +61,12 @@ class StatsResult(BaseModel):
     )
 class Config:
   extra = 'allow'
+  # Represents a single filter option in the search API.
+  # Includes a concept ID, display label, and optionally the number
+  # of matching ads for this filter. 
+class FilterOption(BaseModel):
+    """Filter option"""
+    concept_id: Optional[str] = Field(None, description="Concept ID")
+    label: str = Field(..., description="Display label")
+    occurrences: Optional[int] = Field(None, description="Number of matching ads")
+  
