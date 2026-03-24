@@ -102,4 +102,45 @@ class ExternalAPIClient:
             raise TimeoutError("API request timed out")
         except httpx.ConnectError:
             raise ExternalAPIError("Failed to connect to API")
-          
+      # Retrieve statistics about job ads.
+    async def get_stats(
+        self,
+        query: Optional[str] = None,
+        published_before: Optional[str] = None,
+        published_after: Optional[str] = None,
+        occupation: Optional[List[str]] = None,
+        occupation_group: Optional[List[str]] = None,
+        occupation_field: Optional[List[str]] = None,
+        municipality: Optional[List[str]] = None,
+        region: Optional[List[str]] = None,
+    ) -> Dict[str, Any]:
+         """Get statistics about job ads"""
+         params = {}
+
+         if query:
+            params["q"] = query
+         if published_before:
+            params["published-before"] = published_before
+         if published_after:
+            params["published-after"] = published_after
+         if occupation:
+            params["occupation"] = occupation
+         if occupation_group:
+            params["occupation-group"] = occupation_group
+         if occupation_field:
+            params["occupation-field"] = occupation_field
+         if municipality:
+            params["municipality"] = municipality
+         if region:
+            params["region"] = region
+
+         url = self._build_url("stats")
+         try:
+              async with httpx.AsyncClient(timeout=self.timeout) as client:
+                  response = await client.get(url, params=params)
+                  return self._handle_response(response)
+         except httpx.TimeoutException:
+              raise TimeoutError("API request timed out")
+         except httpx.ConnectError:
+              raise ExternalAPIError("Failed to connect to API")
+            
