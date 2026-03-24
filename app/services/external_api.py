@@ -143,4 +143,12 @@ class ExternalAPIClient:
               raise TimeoutError("API request timed out")
          except httpx.ConnectError:
               raise ExternalAPIError("Failed to connect to API")
-            
+# Singleton instance of the ExternalAPIClient to be used throughout the application.
+_api_client: Optional[ExternalAPIClient] = None
+
+def get_api_client() -> ExternalAPIClient:
+    """ Get or create API client Instance """
+    global _api_client
+    if _api_client is None:
+        _api_client = ExternalAPIClient()
+    return _api_client
