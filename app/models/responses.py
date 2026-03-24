@@ -79,3 +79,9 @@ class FiltersResult(BaseModel):
     municipalities: List[FilterOption] = Field(default_factory=list)
     employment_types: List[FilterOption] = Field(default_factory=list)
     occupation_fields: List[FilterOption] = Field(default_factory=list)
+  # Represents an error response returned from the API, containing an error code and a detailed message describing the error.
+class ErrorResponse(BaseModel):
+  """ Error response model """
+  error: str = Field(..., description="Error message")
+  message: str = Field(..., description="Detailed error message")
+    
