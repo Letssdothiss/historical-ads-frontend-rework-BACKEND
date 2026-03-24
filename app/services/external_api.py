@@ -82,11 +82,24 @@ class ExternalAPIClient:
         url = self._build_url("search")
         
         try:
-            async with httpx.AsyncClient(timeout=self.timeout) as client:
+          async with httpx.AsyncClient(timeout=self.timeout) as client:
                 response = await client.get(url, params=params)
-            return self._handle_response(response)
+          return self._handle_response(response)
         except httpx.TimeoutException:
             raise TimeoutError(f"Request to {url} timed out")
         except httpx.ConnectError as e:
             raise ExternalAPIError(f"Failed to connect to {url}: {str(e)}")
-        
+      # Retrieve a specific job ad by its unique ID from the API.
+    async def get_ad(self, ad_id: str) -> Dict[str, Any]:
+        """Get a specific job ad by ID"""
+        url = self._build_url(f"ad/{ad_id}")
+      
+        try:
+            async with httpx.AsyncClient(timeout=self.timeout) as client:
+                response = await client.get(url)
+                return self._handle_response(response)
+        except httpx.TimeoutException:
+            raise TimeoutError("API request timed out")
+        except httpx.ConnectError:
+            raise ExternalAPIError("Failed to connect to API")
+          
