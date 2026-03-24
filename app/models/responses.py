@@ -40,3 +40,12 @@ class SearchResult(BaseModel):
   freetext_concepts: Optional[Dict[str, Any]] = Field(None, description="Extracted concepts from search")
 class Config:
   extra = 'allow'
+  # Represents a single statistics entry returned from the API,
+  # describing how often a specific concept or category occurs in search results.
+class StatsItem(BaseModel):
+    """Statistics item"""
+    concept_id: Optional[str] = Field(None, description="Concept ID")
+    label: str = Field(..., description="Display label")
+    legacy_ams_taxonomy_id: Optional[str] = Field(None, description="Legacy taxonomy ID")
+    occurrences: int = Field(..., description="Number of occurrences")
+  
