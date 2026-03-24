@@ -25,6 +25,18 @@ class JobAd(BaseModel):
 
   # Allow additional fields not explicitly defined in the model.
   # Useful when the API may return extra data that we still want to accept.
-  class Config:
-    extra = 'allow'
-    
+class Config:
+  extra = 'allow'
+
+  # Represents the response returned from a job search query.
+  # Contains pagination metadata and a list of matching JobAd objects.
+class SearchResult(BaseModel):
+  """Search result model"""
+  total: Dict[str, Any] = Field(..., description="Total number of matching ads")
+  offset: int = Field(..., description="Current offset")
+  limit: int = Field(..., description="Current limit")
+  hits: List[JobAd] = Field(default_factory=list, description="List of job ads")
+  took: Optional[int] = Field(None, description="Query execution time in ms")
+  freetext_concepts: Optional[Dict[str, Any]] = Field(None, description="Extracted concepts from search")
+class Config:
+  extra = 'allow'
