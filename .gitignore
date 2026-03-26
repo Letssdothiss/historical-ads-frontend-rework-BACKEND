@@ -97,3 +97,15 @@ Desktop.ini
 .mypy_cache/
 .dmypy.json
 dmypy.json
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+.icloud
+
+# Zed local directory
+.zed/
+
+# Requirements.in
+requirements.in
