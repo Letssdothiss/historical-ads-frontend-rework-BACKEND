@@ -23,8 +23,20 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload --host 0.0.0.0 --port 5000
 ```
 
+## Docker
+
+```bash
+# Start using Docker Compose
+docker compose up --build
+
+# Access the API at http://localhost:5000
+
+# Stop the server
+docker compose down
+```
+
+
 ## API Documentation
 
 - **Swagger UI**: http://localhost:5000/docs
 - **ReDoc**: http://localhost:5000/redoc
-
