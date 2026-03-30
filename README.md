@@ -26,7 +26,7 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 5000
 ## Docker
 
 ```bash
-# Start using Docker Compose
+# Start the API using Docker Compose
 docker compose up --build
 
 # Access the API at http://localhost:5000
