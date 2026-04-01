@@ -18,7 +18,6 @@ FastAPI backend for searching and analyzing historical job listings from the Swe
 ## Production or minimal install. (Same as docker is using)
 
 ```bash
-# # Install dependencies
 pip install -r requirements.txt
 ```
 
