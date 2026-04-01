@@ -1,0 +1,9 @@
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+extend-exclude = [".venv"]
+
+# Lint rules: Ruff defaults (E4, E7, E9, F). Add e.g. extend-select = ["I", "UP"] under [tool.ruff.lint] when agreed.
+
+[tool.ruff.format]
+quote-style = "double"

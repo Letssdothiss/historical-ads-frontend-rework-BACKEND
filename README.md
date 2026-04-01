@@ -15,13 +15,35 @@ FastAPI backend for searching and analyzing historical job listings from the Swe
 
 ## Getting Started
 
+## Production or minimal install. (Same as docker is using)
+
 ```bash
 # # Install dependencies
 pip install -r requirements.txt
+```
 
-# Start the server
+## Development install. (Developer tools like pytest and ruff)
+
+```bash
+pip install -r requirements-dev.txt
+```
+
+## Start the server
+
+```bash
 uvicorn app.main:app --reload --host 0.0.0.0 --port 5000
 ```
+
+## Code style (Ruff)
+
+Configuration lives in `pyproject.toml` (shared by everyone and CI). After a dev install:
+
+```bash
+ruff check .
+ruff format --check .
+```
+
+Use `ruff check . --fix` and `ruff format .` when you intentionally apply fixes. In CI, prefer check-only so main stays predictable.
 
 ## Docker
 
