@@ -1,4 +1,5 @@
 """Export routes"""
+
 import logging
 from typing import Optional, List
 from fastapi import APIRouter, Depends, Query
@@ -27,19 +28,20 @@ async def export(
 ) -> Response:
     """Export job ads"""
     limit = min(limit, settings.MAX_EXPORT_RECORDS)
-    
+
     result = await api.search(
-        q=q, limit=limit,
+        q=q,
+        limit=limit,
         published_before=published_before,
         published_after=published_after,
         occupation=occupation,
         municipality=municipality,
         region=region,
     )
-    
+
     ads = result.get("hits", [])
     filename = processor.filename(q, format.value)
-    
+
     if format == ExportFormat.json:
         data = processor.to_json(ads).encode()
         media_type = "application/json"
@@ -52,7 +54,7 @@ async def export(
         data = processor.to_xlsx(ads)
         media_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         ext = ".xlsx"
-    
+
     return Response(
         content=data,
         media_type=media_type,

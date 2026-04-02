@@ -1,4 +1,5 @@
 """Request/Response schemas"""
+
 from typing import Optional, List, Dict, Any
 from pydantic import BaseModel, Field
 from enum import Enum
@@ -6,6 +7,7 @@ from enum import Enum
 
 class ExportFormat(str, Enum):
     """Export format enum"""
+
     JSON = "json"
     CSV = "csv"
     XLSX = "xlsx"
@@ -13,6 +15,7 @@ class ExportFormat(str, Enum):
 
 class SearchQuery(BaseModel):
     """Search query parameters"""
+
     q: Optional[str] = Field(None, description="Free text search")
     offset: int = Field(0, ge=0, description="Pagination offset")
     limit: int = Field(10, ge=1, le=100, description="Number of results")
@@ -30,6 +33,7 @@ class SearchQuery(BaseModel):
 
 class ExportQuery(BaseModel):
     """Export query parameters"""
+
     search: SearchQuery = Field(default_factory=SearchQuery)
     format: ExportFormat = Field(ExportFormat.JSON, description="Export format")
     fields: Optional[List[str]] = Field(None, description="Fields to export")

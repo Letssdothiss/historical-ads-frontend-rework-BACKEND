@@ -1,4 +1,5 @@
 """Configuration settings"""
+
 from pydantic_settings import BaseSettings
 from pydantic import ConfigDict
 from typing import List
@@ -6,6 +7,7 @@ from typing import List
 
 class Settings(BaseSettings):
     """Application settings"""
+
     HISTORICAL_API_BASE_URL: str = "https://historical.api.jobtechdev.se"
     API_TIMEOUT: int = 30
     MAX_PAGE_SIZE: int = 100
@@ -15,7 +17,7 @@ class Settings(BaseSettings):
     DEBUG: bool = False
     CORS_ORIGINS: List[str] = ["*"]
 
-    model_config = ConfigDict(extra='allow')
+    model_config = ConfigDict(extra="allow")
 
 
 settings = Settings()

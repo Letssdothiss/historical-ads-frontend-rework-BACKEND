@@ -38,11 +38,25 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 5000
 Configuration lives in `pyproject.toml` (shared by everyone and CI). After a dev install:
 
 ```bash
+# Check for lint issues.
 ruff check .
+
+# Check and fix lint issues.
+ruff check . --fix
+
+# Check for format issues.
 ruff format --check .
+
+# Use ruff to format all files.
+ruff format .
+
+# Use ruff to format a specific file.
+ruff format path/to/file.py
 ```
 
 Use `ruff check . --fix` and `ruff format .` when you intentionally apply fixes. In CI, prefer check-only so main stays predictable.
+
+For more information on the configuration check the [ruff rule documentation](https://docs.astral.sh/ruff/rules/).
 
 ## Docker
 

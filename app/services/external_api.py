@@ -1,4 +1,5 @@
 """External API client"""
+
 import logging
 from typing import Optional, Dict, Any, List
 import httpx
@@ -11,11 +12,11 @@ logger = logging.getLogger(__name__)
 
 class HistoricalAdsAPI:
     """Client for Historical Ads API"""
-    
+
     def __init__(self):
         self.base_url = settings.HISTORICAL_API_BASE_URL
         self.timeout = settings.API_TIMEOUT
-    
+
     async def search(
         self,
         q: Optional[str] = None,
@@ -34,7 +35,7 @@ class HistoricalAdsAPI:
     ) -> Dict[str, Any]:
         """Search for job ads"""
         params = {"offset": offset, "limit": limit}
-        
+
         if q:
             params["q"] = q
         if published_before:
@@ -57,9 +58,9 @@ class HistoricalAdsAPI:
             params["employment-type"] = employment_type
         if experience_required is not None:
             params["experience-required"] = str(experience_required).lower()
-        
+
         url = f"{self.base_url}/search"
-        
+
         try:
             async with httpx.AsyncClient(timeout=self.timeout) as client:
                 response = await client.get(url, params=params)
@@ -68,11 +69,11 @@ class HistoricalAdsAPI:
             raise TimeoutError("API request timed out")
         except httpx.ConnectError as e:
             raise ExternalAPIError(f"Failed to connect: {e}")
-    
+
     async def get_ad(self, ad_id: str) -> Dict[str, Any]:
         """Get job ad by ID"""
         url = f"{self.base_url}/ad/{ad_id}"
-        
+
         try:
             async with httpx.AsyncClient(timeout=self.timeout) as client:
                 response = await client.get(url)
@@ -81,7 +82,7 @@ class HistoricalAdsAPI:
             raise TimeoutError("API request timed out")
         except httpx.ConnectError:
             raise ExternalAPIError("Failed to connect")
-    
+
     async def get_stats(
         self,
         q: Optional[str] = None,
@@ -95,7 +96,7 @@ class HistoricalAdsAPI:
     ) -> Dict[str, Any]:
         """Get statistics"""
         params = {}
-        
+
         if q:
             params["q"] = q
         if published_before:
@@ -112,9 +113,9 @@ class HistoricalAdsAPI:
             params["municipality"] = municipality
         if region:
             params["region"] = region
-        
+
         url = f"{self.base_url}/stats"
-        
+
         try:
             async with httpx.AsyncClient(timeout=self.timeout) as client:
                 response = await client.get(url, params=params)
@@ -123,7 +124,7 @@ class HistoricalAdsAPI:
             raise TimeoutError("API request timed out")
         except httpx.ConnectError:
             raise ExternalAPIError("Failed to connect")
-    
+
     def _handle_response(self, response: httpx.Response) -> Dict[str, Any]:
         """Handle API response"""
         if response.status_code == 200:

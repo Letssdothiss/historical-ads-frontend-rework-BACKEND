@@ -1,4 +1,5 @@
 """Search routes"""
+
 import logging
 from typing import Optional, List, Dict, Any
 from fastapi import APIRouter, Depends, Query
@@ -28,11 +29,18 @@ async def search(
 ) -> Dict[str, Any]:
     """Search historical job ads"""
     return await api.search(
-        q=q, offset=offset, limit=limit,
-        published_before=published_before, published_after=published_after,
-        occupation=occupation, occupation_group=occupation_group,
-        occupation_field=occupation_field, municipality=municipality,
-        region=region, country=country, employment_type=employment_type,
+        q=q,
+        offset=offset,
+        limit=limit,
+        published_before=published_before,
+        published_after=published_after,
+        occupation=occupation,
+        occupation_group=occupation_group,
+        occupation_field=occupation_field,
+        municipality=municipality,
+        region=region,
+        country=country,
+        employment_type=employment_type,
         experience_required=experience_required,
     )
 

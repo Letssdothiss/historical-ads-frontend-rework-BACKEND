@@ -1,6 +1,6 @@
 """Routes module"""
-from fastapi import APIRouter
 
+from fastapi import APIRouter
 from .search import router as search_router
 from .statistics import router as stats_router
 from .filters import router as filters_router

@@ -1,4 +1,5 @@
 """Filters routes"""
+
 from typing import Optional, Dict, Any
 from fastapi import APIRouter, Depends, Query
 

@@ -1,4 +1,5 @@
 """Utils module"""
+
 from .config import settings
 from .errors import (
     AppError,
